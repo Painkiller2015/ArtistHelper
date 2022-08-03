@@ -1,0 +1,23 @@
+{
+  "runtimeOptions": {
+    "tfm": "net7.0",
+    "frameworks": [
+      {
+        "name": "Microsoft.NETCore.App",
+        "version": "7.0.0-preview.6.22324.4"
+      },
+      {
+        "name": "Microsoft.WindowsDesktop.App",
+        "version": "7.0.0-preview.6.22351.3"
+      }
+    ],
+    "additionalProbingPaths": [
+      "C:\\Users\\Painkiller\\.dotnet\\store\\|arch|\\|tfm|",
+      "C:\\Users\\Painkiller\\.nuget\\packages",
+      "D:\\VisualStudio_tool\\NuGetPackages"
+    ],
+    "configProperties": {
+      "Microsoft.NETCore.DotNetHostPolicy.SetAppPaths": true
+    }
+  }
+}

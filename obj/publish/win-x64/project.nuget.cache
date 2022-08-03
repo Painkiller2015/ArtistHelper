@@ -1,0 +1,14 @@
+{
+  "version": 2,
+  "dgSpecHash": "N5SxjUE04RuUq+A/GXzq9TWuCtbLVbxz2zAGJFGNrCZ6ztUGqNi1FYZ37MFJ5u2/DgnHea73yPMwvHc08mS+SA==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\Painkiller\\source\\repos\\ArtistHelper\\ArtistHelper.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Painkiller\\.nuget\\packages\\microsoft.netcore.app.runtime.win-x64\\7.0.0-preview.6.22324.4\\microsoft.netcore.app.runtime.win-x64.7.0.0-preview.6.22324.4.nupkg.sha512",
+    "C:\\Users\\Painkiller\\.nuget\\packages\\microsoft.netcore.app.crossgen2.win-x64\\7.0.0-preview.6.22324.4\\microsoft.netcore.app.crossgen2.win-x64.7.0.0-preview.6.22324.4.nupkg.sha512",
+    "C:\\Users\\Painkiller\\.nuget\\packages\\microsoft.windowsdesktop.app.runtime.win-x64\\7.0.0-preview.6.22351.3\\microsoft.windowsdesktop.app.runtime.win-x64.7.0.0-preview.6.22351.3.nupkg.sha512",
+    "C:\\Users\\Painkiller\\.nuget\\packages\\microsoft.aspnetcore.app.runtime.win-x64\\7.0.0-preview.6.22330.3\\microsoft.aspnetcore.app.runtime.win-x64.7.0.0-preview.6.22330.3.nupkg.sha512",
+    "C:\\Users\\Painkiller\\.nuget\\packages\\microsoft.windows.sdk.net.ref\\10.0.22621.26\\microsoft.windows.sdk.net.ref.10.0.22621.26.nupkg.sha512"
+  ],
+  "logs": []
+}

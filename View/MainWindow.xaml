@@ -1,0 +1,27 @@
+﻿<Window x:Class="ArtistHelper.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:dd="urn:gong-wpf-dragdrop"
+        xmlns:local="clr-namespace:ArtistHelper"
+
+
+        mc:Ignorable="d"
+        AllowsTransparency="True"
+        Topmost="True"
+        WindowStyle="None"
+        Title="MainWindow" Height="500" Width="500"
+        MouseLeftButtonDown="ImageMove"    >
+
+    <Window.Background>
+        <SolidColorBrush Opacity="0"/>
+    </Window.Background>
+
+    <Grid AllowDrop="True">
+
+        <Image x:Name="Image" Source="/frog.jpg" Width="Auto" Height="Auto" Drop="Image_Drop"/>
+
+    </Grid>
+</Window>
+<!-- DataContext="{Binding Source={StaticResource VMLoader}, Path=MainWindowViewModel}" -->
