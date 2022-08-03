@@ -61,7 +61,7 @@ namespace ArtistHelper.View {
                 return;
             }
             _contentLoaded = true;
-            System.Uri resourceLocater = new System.Uri("/ArtistHelper;component/view/imagewindows.xaml", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/ArtistHelper;V1.0.0.0;component/view/imagewindows.xaml", System.UriKind.Relative);
             
             #line 1 "..\..\..\..\View\ImageWindows.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);
