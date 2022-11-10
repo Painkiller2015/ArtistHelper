@@ -1,6 +1,5 @@
-obj/
+obj/Release/
+/Debug/
 bin/
 *.dll
 .*
-obj/Release/net7.0-windows10.0.22621.0/View/MainWindow.g.i.cs
-obj/Release/net7.0-windows10.0.22621.0/App.g.i.cs
