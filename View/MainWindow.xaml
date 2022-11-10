@@ -5,8 +5,6 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:dd="urn:gong-wpf-dragdrop"
         xmlns:local="clr-namespace:ArtistHelper"
-
-
         mc:Ignorable="d"
         AllowsTransparency="True"
         Topmost="True"
@@ -19,9 +17,7 @@
     </Window.Background>
 
     <Grid AllowDrop="True">
-
         <Image x:Name="Image" Source="/frog.jpg" Width="Auto" Height="Auto" Drop="Image_Drop"/>
-
     </Grid>
 </Window>
 <!-- DataContext="{Binding Source={StaticResource VMLoader}, Path=MainWindowViewModel}" -->

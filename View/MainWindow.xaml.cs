@@ -1,4 +1,5 @@
 ﻿using ArtistHelper.View;
+using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,6 +14,9 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+//using System.Windows.Forms;
+using System.Drawing;
+using Microsoft.VisualBasic;
 
 namespace ArtistHelper
 {
@@ -36,6 +40,11 @@ namespace ArtistHelper
             if (e.Data.GetDataPresent(DataFormats.FileDrop))
             {
                 string[] files = (string[])e.Data.GetData(DataFormats.FileDrop);
+                string inputSize = Interaction.InputBox("Введите размер изоображения (100 100)");
+                string[] size = inputSize.Split(' ');
+              
+                int width = Convert.ToInt32(size[0]);
+                int height = Convert.ToInt32(size[1]);
 
                 try
                 {
@@ -43,12 +52,15 @@ namespace ArtistHelper
                     {
                         BitmapImage image = new(new Uri(imagePath));
                         ImageWindows imgWin = new(image);
-                        imgWin.Show(); imgWin.Activate();
+                        imgWin.Width = width;
+                        imgWin.Height = height;
+                        imgWin.Show(); 
+                        imgWin.Activate();
                     }
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("ЧТот не получилось: " + ex);
+                    MessageBox.Show("ЧТот не получилось: \n" + ex);
                     throw;
                 }
 
