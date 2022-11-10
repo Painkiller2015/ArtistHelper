@@ -1,10 +1,17 @@
 {
   "version": 2,
+<<<<<<< Updated upstream
   "dgSpecHash": "OIsLRlLqgxxsIMq3Cmn7l8lmTN84I2rekti4Mu0VbhTSVl1qK8QoRsErIC1hHtSC8ohRhf00SXeXEHAfkVv9XA==",
   "success": true,
   "projectFilePath": "C:\\Users\\Painkiller\\source\\repos\\ArtistHelper\\ArtistHelper.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Painkiller\\.nuget\\packages\\microsoft.windows.sdk.net.ref\\10.0.22621.27\\microsoft.windows.sdk.net.ref.10.0.22621.27.nupkg.sha512"
   ],
+=======
+  "dgSpecHash": "D5w5+yML6JFuSk4CzLXQvYDonkKhovN7sREgOli66D2avZmFv2/zmzC8NfTDWc6AcFUvubLvqBoUuaEe32pQmg==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\Painkiller\\source\\repos\\ArtistHelper\\ArtistHelper.csproj",
+  "expectedPackageFiles": [],
+>>>>>>> Stashed changes
   "logs": []
 }
