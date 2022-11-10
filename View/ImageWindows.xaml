@@ -7,6 +7,7 @@
                mc:Ignorable="d"
         Background="{x:Null}"
         AllowsTransparency="True"
+        Topmost="True"
         Title="UserImage" Height="225" Width="400"
         WindowStyle="None">
 
