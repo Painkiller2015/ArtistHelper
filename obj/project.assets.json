@@ -64,7 +64,7 @@
         "downloadDependencies": [
           {
             "name": "Microsoft.Windows.SDK.NET.Ref",
-            "version": "[10.0.22621.26, 10.0.22621.26]"
+            "version": "[10.0.22621.27, 10.0.22621.27]"
           }
         ],
         "frameworkReferences": {
@@ -78,7 +78,7 @@
             "privateAssets": "none"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.100-preview.6.22352.1\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.100-rc.2.22477.23\\RuntimeIdentifierGraph.json"
       }
     }
   }

@@ -30,5 +30,16 @@ namespace ArtistHelper.View
             if (e.LeftButton == MouseButtonState.Pressed)
                 DragMove();
         }
+
+        private void MouseWheelHandler(object sender, MouseWheelEventArgs e)
+        {
+            if (e.Delta > 0)
+                if (Image.Opacity < 1)
+                    Image.Opacity += 0.1;
+
+            if (e.Delta < 0)
+                if (Image.Opacity > 0.2)
+                    Image.Opacity -= 0.1;
+        }
     }
 }

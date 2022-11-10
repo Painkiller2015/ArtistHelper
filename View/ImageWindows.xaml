@@ -4,14 +4,14 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ArtistHelper.View"
-               mc:Ignorable="d"
+        mc:Ignorable="d"
         Background="{x:Null}"
-        AllowsTransparency="True"
         Topmost="True"
+        AllowsTransparency="True"
         Title="UserImage" Height="225" Width="400"
         WindowStyle="None">
 
     <Grid>
-        <Image x:Name="Image" MouseLeftButtonDown="ImageMove"/>
+        <Image x:Name="Image" MouseLeftButtonDown="ImageMove" PreviewMouseWheel="MouseWheelHandler"/>
     </Grid>
 </Window>

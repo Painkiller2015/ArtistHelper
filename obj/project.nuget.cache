@@ -1,10 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "smOhYcQc/vKWrnyZ+uSMvn4wwSmpzd01p9slA7QkCJB6UoNCqDFvEdg6drMCnJN8jQS6ZAfIUJcjeyXOtp8vBw==",
+  "dgSpecHash": "tBk8cQ/E5gaH0CttflFRJsEYuek73CuwWZKqTPQpUkd3aLEC83B+/pvLWUPtfv1YmTurSi4omWVqOBh+nBSMlw==",
   "success": true,
   "projectFilePath": "C:\\Users\\Painkiller\\source\\repos\\ArtistHelper\\ArtistHelper.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\Painkiller\\.nuget\\packages\\microsoft.windows.sdk.net.ref\\10.0.22621.26\\microsoft.windows.sdk.net.ref.10.0.22621.26.nupkg.sha512"
+    "C:\\Users\\Painkiller\\.nuget\\packages\\microsoft.windows.sdk.net.ref\\10.0.22621.27\\microsoft.windows.sdk.net.ref.10.0.22621.27.nupkg.sha512"
   ],
   "logs": []
 }
