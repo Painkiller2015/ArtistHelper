@@ -10,7 +10,7 @@
         Topmost="True"
         WindowStyle="None"
         Title="MainWindow" Height="500" Width="500"
-        MouseLeftButtonDown="ImageMove"    >
+        MouseLeftButtonDown="ImageMove">
 
     <Window.Background>
         <SolidColorBrush Opacity="0"/>

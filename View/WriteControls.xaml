@@ -1,0 +1,49 @@
+﻿<Window x:Class="ArtistHelper.View.WriteControls"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ArtistHelper.View"
+        mc:Ignorable="d"
+        Topmost="True"
+        Title="WriteControls" Height="200" Width="400"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <Label Content="Размер кисти:" 
+               Grid.Column="0" 
+               Grid.Row="0"/>
+        <TextBox x:Name="StickSize"                  
+                 TextChanged="ReSize"
+                 PreviewTextInput="ValidateText"
+                 Grid.Column="1" 
+                 Grid.Row="0"/>
+
+        <Label Content="Удалять по линиям?" 
+               Grid.Column="0" 
+               Grid.Row="1"/>
+        <CheckBox x:Name="EditorMode" 
+                 Click="EditorModeChange"
+                 Grid.Column="1" 
+                 Grid.Row="1"/>
+
+
+
+        <Label Content="Цвет кисти" 
+               Grid.Column="0" 
+               Grid.Row="2" />
+        <xctk:ColorPicker x:Name="ColorPickerAdvanced" 
+                          SelectedColorChanged="SwapColor" 
+                          Grid.Column="1" 
+                          Grid.Row="2"/>
+    </Grid>
+</Window>

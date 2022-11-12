@@ -41,10 +41,7 @@ namespace ArtistHelper.View
             if (e.Delta < 0)
                 if (Image.Opacity > 0.2)
                     Image.Opacity -= 0.1;
-<<<<<<< Updated upstream
         }     
-=======
-        }
->>>>>>> Stashed changes
+        
     }
 }

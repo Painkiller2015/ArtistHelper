@@ -17,6 +17,8 @@ using System.Windows.Shapes;
 //using System.Windows.Forms;
 using System.Drawing;
 using Microsoft.VisualBasic;
+using ArtistHelper.ButtonControls;
+using ArtistHelper.Service;
 
 namespace ArtistHelper
 {
@@ -28,6 +30,25 @@ namespace ArtistHelper
         public MainWindow()
         {
             InitializeComponent();
+            CreateControlPanel();
+            CreateCanvasLayer();
+        }
+
+        private static void CreateCanvasLayer()
+        {
+            ScreenCanvas sv = new()
+            {
+                Height = SysConfig.GetHeightScreens(),
+                Width = SysConfig.GetWidthScreens()                
+            };
+            
+            sv.Show();
+        }
+
+        private static void CreateControlPanel()
+        {
+            WriteControls wc = new();
+            wc.Show();
         }
 
         private void ImageMove(object sender, MouseButtonEventArgs e)
@@ -51,9 +72,11 @@ namespace ArtistHelper
                     foreach (var imagePath in files)
                     {
                         BitmapImage image = new(new Uri(imagePath));
-                        ImageWindows imgWin = new(image);
-                        imgWin.Width = width;
-                        imgWin.Height = height;
+                        ImageWindows imgWin = new(image)
+                        {
+                            Width = width,
+                            Height = height
+                        };
                         imgWin.Show(); 
                         imgWin.Activate();
                     }

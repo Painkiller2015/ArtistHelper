@@ -6,11 +6,8 @@
     <Nullable>enable</Nullable>
     <UseWPF>true</UseWPF>
     <ApplicationIcon>pngwing.com.ico</ApplicationIcon>
-<<<<<<< Updated upstream
     <UseWindowsForms>True</UseWindowsForms>
-=======
     <SupportedOSPlatformVersion>7.0</SupportedOSPlatformVersion>
->>>>>>> Stashed changes
   </PropertyGroup>
 
   <ItemGroup>
@@ -25,6 +22,10 @@
 
   <ItemGroup>
     <Content Include="pngwing.com.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Extended.Wpf.Toolkit" Version="4.4.0" />
   </ItemGroup>
 
 </Project>

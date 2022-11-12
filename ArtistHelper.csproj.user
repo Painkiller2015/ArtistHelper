@@ -12,12 +12,24 @@
     <Compile Update="View\ImageWindows.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="View\ScreenCanvas.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="View\WriteControls.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Page Update="View\ImageWindows.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="View\MainWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="View\ScreenCanvas.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="View\WriteControls.xaml">
       <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
