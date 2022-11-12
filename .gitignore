@@ -1,5 +1,4 @@
-obj/Release/
-/Debug/
+obj/**
+**/.vs/**
 bin/
 *.dll
-.*
