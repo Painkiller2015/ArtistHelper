@@ -362,3 +362,11 @@ MigrationBackup/
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
 *.v5
+.vs/ProjectEvaluation/artisthelper.projects.v5.2
+.vs/ProjectEvaluation/artisthelper.metadata.v5.2
+.vs/ProjectEvaluation/artisthelper.metadata.v5
+.vs/ArtistHelper/v17/.suo
+.vs/ArtistHelper/v17/.futdcache.v2
+.vs/ArtistHelper/FileContentIndex/9c40969b-9abc-4fcb-a02a-002b427b4c79.vsidx
+.vs/ArtistHelper/FileContentIndex/5d772274-0d20-44ed-aeb3-c0b5357c5085.vsidx
+.vs/ArtistHelper/DesignTimeBuild/.dtbcache.v2
