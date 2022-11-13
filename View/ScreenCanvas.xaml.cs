@@ -1,5 +1,6 @@
 ﻿using ArtistHelper.ButtonControls;
 using ArtistHelper.Model;
+using ArtistHelper.Service;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -24,29 +25,26 @@ namespace ArtistHelper.View
     /// </summary>
     public partial class ScreenCanvas : Window
     {
-        public bool StartProcess { get; set; }
-        private GlobalHotKeyManager _GHKManager = new();
-        private static CancellationTokenSource? sourse = null;
         private InkCanvasEditingMode _inkCanvasEditingMode;
-
+        private GlobalHotKeyManager _GHKManager= new();
         public ScreenCanvas()
         {
             InitializeComponent();
+
             this.Left = SystemParameters.VirtualScreenLeft;
             this.Top = SystemParameters.VirtualScreenTop;
-            HotKeyInit();
-
-            WriteControls.ChangeColorEvent += async (obj, color) =>
+           
+            ControlPanel.ChangeColorEvent += async (obj, color) =>
             {
                 Color newColor = ((SolidColorBrush)color).Color;
                 CanvasLayer.DefaultDrawingAttributes.Color = newColor;
 
             };
-            WriteControls.ChangeBrushSizeEvent += async (obj, size) =>
+            ControlPanel.ChangeBrushSizeEvent += async (obj, size) =>
             {
                 CanvasLayer.DefaultDrawingAttributes.Width = size;             
             };
-            WriteControls.ChangeEditorModeEvent += async (obj, delLine) =>
+            ControlPanel.ChangeEditorModeEvent += async (obj, delLine) =>
             {
                 if (delLine)
                 {
@@ -56,37 +54,18 @@ namespace ArtistHelper.View
                 {
                     _inkCanvasEditingMode = InkCanvasEditingMode.EraseByPoint;
                 }
-
-
-
             };
-        }
-        private void HotKeyInit()
-        {
-            _GHKManager.StatusProcessEvent += async (obj, status) =>
+ 
+            _GHKManager.CanvasActivEvent += async (obj, needCanvasActive) =>
             {
-                StartProcess = status;
+                if (needCanvasActive)
+                    await StartArtProccess();
+                if (!needCanvasActive)
+                    await StopArtProccess();
 
-                if (StartProcess)
-                {
-                    if (sourse == null)
-                    {
-                        sourse = new CancellationTokenSource();
-                        await StartArtProccess();
-                    }
-                }
-                else
-                {
-                    if (sourse != null)
-                    {
-                        sourse.Cancel();
-                        sourse = null;
-                        await StopArtProccess();
-                    }
-                }
             };
         }
-        private async Task StartArtProccess()
+        public async Task StartArtProccess()
         {
             this.Focusable = true;
             this.Activate();
@@ -102,14 +81,13 @@ namespace ArtistHelper.View
                 CanvasLayer.EditingMode = InkCanvasEditingMode.Ink;
 
         }
-        private async Task StopArtProccess()
+        public async Task StopArtProccess()
         {               
             this.Focusable = false;
             CanvasLayer.EditingMode = InkCanvasEditingMode.None;
             SetColor("#00000000");
 
         }
-
         private void SetColor(string HEXcolor)
         {
             var bc = new BrushConverter();
