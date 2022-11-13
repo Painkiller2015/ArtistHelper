@@ -15,8 +15,8 @@ namespace ArtistHelper.Service
     public static class SysConfig
     {        
         //private static Workspase _workspase = new();
-        public static int GetWidthScreens() => (int)SystemParameters.VirtualScreenWidth;
-        public static int GetHeightScreens() => (int)SystemParameters.VirtualScreenHeight;
+        public static double WidthScreens { get; } = SystemParameters.VirtualScreenWidth;
+        public static double HeightScreens { get; } = SystemParameters.VirtualScreenHeight;
         //private class Workspase
         //{
         //    public int Height { get; private set; } = default;
