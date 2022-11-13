@@ -25,32 +25,13 @@ namespace ArtistHelper
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class ImageCreator : Window
     {
-        public MainWindow()
+        public ImageCreator()
         {
             InitializeComponent();
-            CreateControlPanel();
-            CreateCanvasLayer();
-        }
-
-        private static void CreateCanvasLayer()
-        {
-            ScreenCanvas sv = new()
-            {
-                Height = SysConfig.GetHeightScreens(),
-                Width = SysConfig.GetWidthScreens()                
-            };
             
-            sv.Show();
         }
-
-        private static void CreateControlPanel()
-        {
-            WriteControls wc = new();
-            wc.Show();
-        }
-
         private void ImageMove(object sender, MouseButtonEventArgs e)
         {
             if (e.LeftButton == MouseButtonState.Pressed)
@@ -61,22 +42,13 @@ namespace ArtistHelper
             if (e.Data.GetDataPresent(DataFormats.FileDrop))
             {
                 string[] files = (string[])e.Data.GetData(DataFormats.FileDrop);
-                string inputSize = Interaction.InputBox("Введите размер изоображения (100 100)");
-                string[] size = inputSize.Split(' ');
-              
-                int width = Convert.ToInt32(size[0]);
-                int height = Convert.ToInt32(size[1]);
 
                 try
                 {
                     foreach (var imagePath in files)
                     {
                         BitmapImage image = new(new Uri(imagePath));
-                        ImageWindows imgWin = new(image)
-                        {
-                            Width = width,
-                            Height = height
-                        };
+                        ImageWindows imgWin = new(image);
                         imgWin.Show(); 
                         imgWin.Activate();
                     }

@@ -18,20 +18,20 @@ using System.Windows.Shapes;
 using Xceed.Wpf.Toolkit;
 using ArtistHelper.Model;
 using System.Text.RegularExpressions;
-using static System.Net.Mime.MediaTypeNames;
+
 
 namespace ArtistHelper.View
 {
     /// <summary>
     /// Логика взаимодействия для WriteControls.xaml
     /// </summary>
-    public partial class WriteControls : Window
+    public partial class ControlPanel : Window
     {
         private static readonly Regex _regex = new Regex("[^0-9.-]+");
         public static event EventHandler<Brush> ChangeColorEvent;
         public static event EventHandler<int> ChangeBrushSizeEvent;
         public static event EventHandler<bool> ChangeEditorModeEvent;
-        public WriteControls()
+        public ControlPanel()
         {
             InitializeComponent();
         }
