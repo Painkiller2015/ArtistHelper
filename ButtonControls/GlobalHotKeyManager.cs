@@ -1,26 +1,45 @@
-﻿using System;
+﻿using ArtistHelper.Model;
+using ArtistHelper.View;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 
 namespace ArtistHelper.ButtonControls
 {
     public sealed class GlobalHotKeyManager : IDisposable
     {
-        public event EventHandler<bool> StatusProcessEvent;
-        public bool StartedProcess { get; private set; }
+        #region HotKeyEvent
+        //public event EventHandler<bool> StatusProcessEvent;
+        public event EventHandler<bool> CanvasActivEvent; 
+        public event EventHandler<bool> CreateControlPanelEvent;
+        public event EventHandler<bool> CreateImageCreaterEvent;
+        public event EventHandler<bool> ImageFixEvent; 
+        public event EventHandler<bool> CMDButtonPressEvent;
+        #endregion HotKeyEvent
         internal LowLevelKeyboardListener _listener;
-        private bool PressedLeftCtrl { get;  set; }
-        private bool StopHK { get;  set; }
-        private bool StartHK { get;  set; }
-
+        public bool StartedProcess { get; private set; } = true;
+        public bool FixImage { get; private set; }
+        private bool PrePressedLeftCtrl { get; set; }
+        private bool PressedLeftCtrl { get; set; }
+        private bool PressedLeftShift { get; set; }
+        private bool PressedLeftAlt { get; set; }
+        private bool PressedNumPad1 { get; set; }
+        private bool PressedNumPad2 { get; set; }
+        private bool StartHK { get; set; }
+        #region InitKey
         private const Key _keyLeftCtrl = Key.LeftCtrl;
+        private const Key _keyLeftShift = Key.LeftShift;
+        private const Key _keyLeftAlt = Key.LeftAlt;
         private const Key _keyF1 = Key.F1;
-
-
+        private const Key _keyNumPad1 = Key.NumPad1;
+        private const Key _keyNumPad2 = Key.NumPad2;
+        #endregion InitKey
         internal GlobalHotKeyManager()
         {
             _listener = new LowLevelKeyboardListener();
@@ -29,38 +48,71 @@ namespace ArtistHelper.ButtonControls
 
             _listener.HookKeyboard();
         }
-        async void _listener_OnKeyDown(object sender, KeyDownArgs e)
+        private async void _listener_OnKeyDown(object sender, KeyDownArgs e)
         {
             switch (e.KeyDown)
             {
                 case _keyLeftCtrl:
                     PressedLeftCtrl = true;
                     break;
-
                 case _keyF1:
                     StartHK = true;
                     break;
+                case _keyLeftShift:
+                    PressedLeftShift = true;
+                    break;
+                case _keyLeftAlt:
+                    PressedLeftAlt = true;
+                    break;
+                case _keyNumPad1:
+                    PressedNumPad1 = true;
+                    break;
+                case _keyNumPad2:
+                    PressedNumPad2 = true;
+                    break;
             }
 
-            if (PressedLeftCtrl)
+            await HotkeyStart();
+        }
+
+        private async Task HotkeyStart()
+        {
+            if (PrePressedLeftCtrl != PressedLeftCtrl)
             {
-                if (StartedProcess == false && StartHK)
+                CMDButtonPressEvent?.Invoke(null, PressedLeftCtrl);
+                PrePressedLeftCtrl = PressedLeftCtrl;
+            }
+            if (PressedLeftCtrl && StartHK && !PressedLeftShift)
+            {
+                if (!Application.Current.Windows.OfType<Window>().Any(w => w.GetType().Name == "CanvasLayer"))
                 {
-                    StartedProcess = true;
-                    StatusProcessEvent?.Invoke(null, StartedProcess);
-                    PressedLeftCtrl = false;
-                    StartHK = false;
+                    Factory factory = new();
+                    factory.CreateCanvasLayerWindow();
                 }
-                if (StartedProcess == true && StartHK)
-                {
-                    StartedProcess = false;
-                    StatusProcessEvent?.Invoke(null, StartedProcess);
-                    PressedLeftCtrl = false;
-                    StopHK = false;
-                }
+                StartedProcess = !StartedProcess;
+                CanvasActivEvent?.Invoke(null, StartedProcess);
+
+            }
+            if (PressedLeftCtrl && PressedLeftShift && StartHK)
+            {
+                FixImage = !FixImage;
+                ImageFixEvent?.Invoke(null, FixImage);
+                PressedLeftCtrl = false;
+                PressedLeftShift = false;
+                StartHK = false;
+            }
+            if (PressedLeftCtrl && PressedLeftAlt && PressedNumPad1)
+            {
+                Factory factory = new();
+                factory.CreateControlPanelWindow();                
+            }
+            if (PressedLeftCtrl && PressedLeftAlt && PressedNumPad2)
+            {
+                Factory factory = new();
+                factory.CreateImageCreatorWindow();
             }
         }
-        async void _listener_OnKeyUp(object sender, KeyUpArgs e)
+        private async void _listener_OnKeyUp(object sender, KeyUpArgs e)
         {
             switch (e.KeyUp)
             {
@@ -69,6 +121,18 @@ namespace ArtistHelper.ButtonControls
                     break;
                 case _keyF1:
                     StartHK = false;
+                    break;
+                case _keyLeftShift:
+                    PressedLeftShift = false;
+                    break;
+                case _keyLeftAlt:
+                    PressedLeftAlt = false;
+                    break;
+                case _keyNumPad1:
+                    PressedNumPad1 = false;
+                    break;
+                case _keyNumPad2:
+                    PressedNumPad2 = false;
                     break;
             }
         }
