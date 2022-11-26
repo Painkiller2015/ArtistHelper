@@ -12,6 +12,7 @@ using System.Windows.Input;
 
 namespace ArtistHelper.ButtonControls
 {
+    // TODO Перепиши это говно уже plz
     public sealed class GlobalHotKeyManager : IDisposable
     {
         #region HotKeyEvent
@@ -20,23 +21,27 @@ namespace ArtistHelper.ButtonControls
         public event EventHandler<bool> CreateControlPanelEvent;
         public event EventHandler<bool> CreateImageCreaterEvent;
         public event EventHandler<bool> ImageFixEvent; 
-        public event EventHandler<bool> CMDButtonPressEvent;
+        public event EventHandler<bool> CtrlButtonPressEvent;
+        public event EventHandler<bool> MirrorImage;
+        public event EventHandler<bool> AltButtonPressEvent;
+        private Factory _Factory = new();
         #endregion HotKeyEvent
         internal LowLevelKeyboardListener _listener;
         public bool StartedProcess { get; private set; } = true;
         public bool FixImage { get; private set; }
-        private bool PrePressedLeftCtrl { get; set; }
         private bool PressedLeftCtrl { get; set; }
         private bool PressedLeftShift { get; set; }
         private bool PressedLeftAlt { get; set; }
         private bool PressedNumPad1 { get; set; }
         private bool PressedNumPad2 { get; set; }
+        private bool PressedM { get; set; }
         private bool StartHK { get; set; }
         #region InitKey
         private const Key _keyLeftCtrl = Key.LeftCtrl;
         private const Key _keyLeftShift = Key.LeftShift;
         private const Key _keyLeftAlt = Key.LeftAlt;
         private const Key _keyF1 = Key.F1;
+        private const Key _keyM = Key.M;
         private const Key _keyNumPad1 = Key.NumPad1;
         private const Key _keyNumPad2 = Key.NumPad2;
         #endregion InitKey
@@ -58,6 +63,9 @@ namespace ArtistHelper.ButtonControls
                 case _keyF1:
                     StartHK = true;
                     break;
+                case _keyM:
+                    PressedM = true;
+                    break;
                 case _keyLeftShift:
                     PressedLeftShift = true;
                     break;
@@ -77,21 +85,24 @@ namespace ArtistHelper.ButtonControls
 
         private async Task HotkeyStart()
         {
-            if (PrePressedLeftCtrl != PressedLeftCtrl)
+            if (PressedLeftCtrl)
             {
-                CMDButtonPressEvent?.Invoke(null, PressedLeftCtrl);
-                PrePressedLeftCtrl = PressedLeftCtrl;
+                CtrlButtonPressEvent?.Invoke(null, PressedLeftCtrl);
+                //PressedLeftCtrl = false;
+                //PrePressedLeftCtrl = PressedLeftCtrl;
+            }
+            if (PressedLeftAlt)
+            {
+                AltButtonPressEvent?.Invoke(null, PressedLeftAlt);
             }
             if (PressedLeftCtrl && StartHK && !PressedLeftShift)
             {
                 if (!Application.Current.Windows.OfType<Window>().Any(w => w.GetType().Name == "CanvasLayer"))
                 {
-                    Factory factory = new();
-                    factory.CreateCanvasLayerWindow();
+                    _Factory.CreateCanvasLayerWindow();
                 }
                 StartedProcess = !StartedProcess;
                 CanvasActivEvent?.Invoke(null, StartedProcess);
-
             }
             if (PressedLeftCtrl && PressedLeftShift && StartHK)
             {
@@ -103,13 +114,15 @@ namespace ArtistHelper.ButtonControls
             }
             if (PressedLeftCtrl && PressedLeftAlt && PressedNumPad1)
             {
-                Factory factory = new();
-                factory.CreateControlPanelWindow();                
+                _Factory.CreateControlPanelWindow();                
             }
             if (PressedLeftCtrl && PressedLeftAlt && PressedNumPad2)
             {
-                Factory factory = new();
-                factory.CreateImageCreatorWindow();
+                _Factory.CreateImageCreatorWindow();
+            }
+            if (PressedLeftCtrl && PressedM)
+            {
+                MirrorImage?.Invoke(this, PressedM);
             }
         }
         private async void _listener_OnKeyUp(object sender, KeyUpArgs e)
@@ -118,15 +131,20 @@ namespace ArtistHelper.ButtonControls
             {
                 case _keyLeftCtrl:
                     PressedLeftCtrl = false;
+                    CtrlButtonPressEvent?.Invoke(null, PressedLeftCtrl);
                     break;
                 case _keyF1:
                     StartHK = false;
+                    break;
+                case _keyM:
+                    PressedM = false;
                     break;
                 case _keyLeftShift:
                     PressedLeftShift = false;
                     break;
                 case _keyLeftAlt:
                     PressedLeftAlt = false;
+                    AltButtonPressEvent?.Invoke(null, PressedLeftAlt);
                     break;
                 case _keyNumPad1:
                     PressedNumPad1 = false;

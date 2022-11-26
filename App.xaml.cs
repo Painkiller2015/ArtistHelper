@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using ArtistHelper.ButtonControls;
+using System.Windows;
 
 
 namespace ArtistHelper
@@ -8,6 +9,13 @@ namespace ArtistHelper
     /// </summary>
     public partial class App : Application
     {
+        GlobalHotKeyManager _GHKManager = new();
+        public App()
+        {
+            _GHKManager.CreateControlPanelEvent += async (obj, needCreate) =>
+            {
 
+            };
+        }
     }
 }

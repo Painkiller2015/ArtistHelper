@@ -26,11 +26,10 @@ namespace ArtistHelper
     /// Interaction logic for MainWindow.xaml
     /// </summary>
     public partial class ImageCreator : Window
-    {
+    {        
         public ImageCreator()
         {
-            InitializeComponent();
-            
+            InitializeComponent();           
         }
         private void ImageMove(object sender, MouseButtonEventArgs e)
         {

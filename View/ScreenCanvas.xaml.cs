@@ -26,7 +26,7 @@ namespace ArtistHelper.View
     public partial class ScreenCanvas : Window
     {
         private InkCanvasEditingMode _inkCanvasEditingMode;
-        private GlobalHotKeyManager _GHKManager= new();
+        private GlobalHotKeyManager _GHKManager = new();
         public ScreenCanvas()
         {
             InitializeComponent();

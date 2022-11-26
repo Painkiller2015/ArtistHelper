@@ -31,6 +31,7 @@ namespace ArtistHelper.View
         public static event EventHandler<Brush> ChangeColorEvent;
         public static event EventHandler<int> ChangeBrushSizeEvent;
         public static event EventHandler<bool> ChangeEditorModeEvent;
+        
         public ControlPanel()
         {
             InitializeComponent();

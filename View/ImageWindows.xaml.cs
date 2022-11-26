@@ -28,10 +28,15 @@ namespace ArtistHelper.View
     public partial class ImageWindows : Window
     {
         private GlobalHotKeyManager _GHKManager = new();
-        private bool _CMDButtonIsPressed;
+        private bool _CtrlButtonIsPressed;
+        private bool _AltButtonIsPressed;
         private double _monitorAspectRatio;
         private double _scrollStepWidth;
         private double _scrollStepHeight;
+        private double _angle;
+        private bool _isMirrored = false;
+        private RotateTransform _rotateTransform = new();
+        private ScaleTransform _scaleTransform = new();
         public ImageWindows(BitmapImage image)
         {
             InitializeComponent();
@@ -43,12 +48,26 @@ namespace ArtistHelper.View
             {
                 if (needFixImage)
                     await StartFixImage();
-              if (!needFixImage)
+                if (!needFixImage)
                     await StopFixImage();
             };
-            _GHKManager.CMDButtonPressEvent += async (obj, isPressed) =>
+            _GHKManager.CtrlButtonPressEvent += async (obj, isPressed) =>
             {
-                _CMDButtonIsPressed = isPressed;
+                _CtrlButtonIsPressed = isPressed;
+            };
+            _GHKManager.AltButtonPressEvent += async (obj, isPressed) =>
+            {
+                _AltButtonIsPressed = isPressed;
+            };
+            _GHKManager.MirrorImage += async (obj, mirror) =>
+            {
+                if (_isMirrored)
+                    _scaleTransform.ScaleX = 1;
+                else
+                    _scaleTransform.ScaleX = -1;
+
+                SetRender(_rotateTransform, _scaleTransform);
+                _isMirrored = !_isMirrored;
             };
         }
 
@@ -59,37 +78,54 @@ namespace ArtistHelper.View
         }
         private void MouseWheelHandler(object sender, MouseWheelEventArgs e)
         {
-            if (_CMDButtonIsPressed)
+            if (_CtrlButtonIsPressed)
             {
                 Screen currentScreen = this.CurrentScreen();
                 _monitorAspectRatio = Image.Source.Width / Image.Source.Height;
                 _scrollStepWidth = currentScreen.Bounds.Width / 100.00;
                 _scrollStepHeight = _scrollStepWidth / _monitorAspectRatio;
 
-
                 if (e.Delta > 0)
                 {
                     Image.Width += _scrollStepWidth;
                     Image.Height += _scrollStepHeight;
                 }
-
                 if (e.Delta < 0)
                 {
                     Image.Width -= _scrollStepWidth;
                     Image.Height -= _scrollStepHeight;
                 }
             }
-            if (!_CMDButtonIsPressed)
+            if (_AltButtonIsPressed)
+            {
+                if (e.Delta > 0)
+                    _angle += 1;
+                if (e.Delta < 0)
+                    _angle -= 1;
+
+                _rotateTransform.Angle = _angle;
+                SetRender(_rotateTransform, _scaleTransform);
+            }
+            if (!_CtrlButtonIsPressed && !_AltButtonIsPressed)
             {
                 if (e.Delta > 0)
                     if (Image.Opacity < 1)
                         Image.Opacity += 0.1;
-
                 if (e.Delta < 0)
                     if (Image.Opacity > 0.2)
                         Image.Opacity -= 0.1;
             }
         }
+        private void SetRender(params Transform[] transforms)
+        {
+            TransformGroup multiTranform = new();
+
+            foreach (var transform in transforms)
+                multiTranform.Children.Add(transform);
+
+            Image.RenderTransform = multiTranform;
+        }
+
         private async Task StartFixImage()
         {
             var hwnd = new WindowInteropHelper(this).Handle;
@@ -97,7 +133,7 @@ namespace ArtistHelper.View
         }
         private async Task StopFixImage()
         {
-            var hwnd = new WindowInteropHelper(this).Owner;
+            var hwnd = new WindowInteropHelper(this).Handle;
             WindowsServices.ClearWindowExTransparent(hwnd);
         }
         protected override void OnSourceInitialized(EventArgs e)

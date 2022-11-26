@@ -11,13 +11,13 @@
         AllowsTransparency="True"
         Title="UserImage"
         WindowStyle="None">
-
     <Grid>
         <Image x:Name="Image" MouseLeftButtonDown="ImageMove" 
-               PreviewMouseWheel="MouseWheelHandler"
-               VerticalAlignment="Stretch" 
+               PreviewMouseWheel="MouseWheelHandler" 
+               VerticalAlignment="Stretch"
                HorizontalAlignment="Stretch"
-               Stretch="Fill"
-               RenderTransformOrigin="0.5,0.5"/>
+               RenderTransformOrigin = "0.5,0.5"
+               
+               />
     </Grid>
 </Window>
