@@ -9,6 +9,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
+using ArtistHelper.Service;
 
 namespace ArtistHelper.ButtonControls
 {
@@ -37,6 +38,7 @@ namespace ArtistHelper.ButtonControls
         private bool PressedNumPad2 { get; set; }
         private bool PressedM { get; set; }
         private bool PressedC { get; set; }
+        private bool PressedL { get; set; }
         private bool StartHK { get; set; }
         #region InitKey
         private const Key _keyLeftCtrl = Key.LeftCtrl;
@@ -45,6 +47,7 @@ namespace ArtistHelper.ButtonControls
         private const Key _keyF1 = Key.F1;
         private const Key _keyM = Key.M;
         private const Key _keyC = Key.C;
+        private const Key _keyL = Key.L;
         private const Key _keyNumPad1 = Key.NumPad1;
         private const Key _keyNumPad2 = Key.NumPad2;
         #endregion InitKey
@@ -72,6 +75,9 @@ namespace ArtistHelper.ButtonControls
                 case _keyC:
                     PressedC = true;
                     break;
+                case _keyL:
+                    PressedL = true;
+                    break;
                 case _keyLeftShift:
                     PressedLeftShift = true;
                     break;
@@ -92,7 +98,7 @@ namespace ArtistHelper.ButtonControls
         private async Task HotkeyStart()
         {
             if (PressedLeftCtrl)
-            {
+            {                
                 CtrlButtonPressEvent?.Invoke(null, PressedLeftCtrl);
                 //PressedLeftCtrl = false;
                 //PrePressedLeftCtrl = PressedLeftCtrl;
@@ -129,10 +135,17 @@ namespace ArtistHelper.ButtonControls
             if (PressedLeftCtrl && PressedM)
             {
                 MirrorImage?.Invoke(this, PressedM);
+                PressedM = false;
             }
             if (PressedLeftAlt && PressedC)
             {
                 ClearCanvas?.Invoke(this, PressedC);
+                PressedC = false;
+            }
+            if (PressedLeftAlt && PressedL)
+            {
+                WinApi.SetTopWindow();
+                PressedL = false;
             }
         }
         private async void _listener_OnKeyUp(object sender, KeyUpArgs e)
@@ -143,15 +156,18 @@ namespace ArtistHelper.ButtonControls
                     PressedLeftCtrl = false;
                     CtrlButtonPressEvent?.Invoke(null, PressedLeftCtrl);
                     break;
-                case _keyF1:
-                    StartHK = false;
-                    break;
-                case _keyM:
-                    PressedM = false;
-                    break;
-                case _keyC:
-                    PressedC = false;
-                    break;
+                //case _keyF1:
+                //    StartHK = false;
+                //    break;
+                //case _keyM:
+                //    PressedM = false;
+                //    break;
+                //case _keyC:
+                //    PressedC = false;
+                //    break;
+                //case _keyL:
+                //    PressedL = false;
+                //    break;
                 case _keyLeftShift:
                     PressedLeftShift = false;
                     break;
