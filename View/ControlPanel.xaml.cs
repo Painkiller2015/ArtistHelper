@@ -43,14 +43,14 @@ namespace ArtistHelper.View
             { 
                 int brushSize = Convert.ToInt32(((TextBox)sender).Text);
                 ContolPanelConfig.BrushesSize = brushSize;
-                ChangeBrushSizeEvent.Invoke(this, brushSize);
+                ChangeBrushSizeEvent?.Invoke(this, brushSize);
             }
         }
         private void SwapColor(object sender, RoutedPropertyChangedEventArgs<Color?> e)
         {
             Brush brush = new SolidColorBrush((Color)e.NewValue);
             ContolPanelConfig.BrushesColor = brush;
-            ChangeColorEvent.Invoke(this, brush);
+            ChangeColorEvent?.Invoke(this, brush);
         }
 
         private void ValidateText(object sender, TextCompositionEventArgs e)

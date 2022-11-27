@@ -23,6 +23,7 @@ namespace ArtistHelper.ButtonControls
         public event EventHandler<bool> ImageFixEvent; 
         public event EventHandler<bool> CtrlButtonPressEvent;
         public event EventHandler<bool> MirrorImage;
+        public event EventHandler<bool> ClearCanvas;
         public event EventHandler<bool> AltButtonPressEvent;
         private Factory _Factory = new();
         #endregion HotKeyEvent
@@ -35,6 +36,7 @@ namespace ArtistHelper.ButtonControls
         private bool PressedNumPad1 { get; set; }
         private bool PressedNumPad2 { get; set; }
         private bool PressedM { get; set; }
+        private bool PressedC { get; set; }
         private bool StartHK { get; set; }
         #region InitKey
         private const Key _keyLeftCtrl = Key.LeftCtrl;
@@ -42,6 +44,7 @@ namespace ArtistHelper.ButtonControls
         private const Key _keyLeftAlt = Key.LeftAlt;
         private const Key _keyF1 = Key.F1;
         private const Key _keyM = Key.M;
+        private const Key _keyC = Key.C;
         private const Key _keyNumPad1 = Key.NumPad1;
         private const Key _keyNumPad2 = Key.NumPad2;
         #endregion InitKey
@@ -65,6 +68,9 @@ namespace ArtistHelper.ButtonControls
                     break;
                 case _keyM:
                     PressedM = true;
+                    break;
+                case _keyC:
+                    PressedC = true;
                     break;
                 case _keyLeftShift:
                     PressedLeftShift = true;
@@ -124,6 +130,10 @@ namespace ArtistHelper.ButtonControls
             {
                 MirrorImage?.Invoke(this, PressedM);
             }
+            if (PressedLeftAlt && PressedC)
+            {
+                ClearCanvas?.Invoke(this, PressedC);
+            }
         }
         private async void _listener_OnKeyUp(object sender, KeyUpArgs e)
         {
@@ -138,6 +148,9 @@ namespace ArtistHelper.ButtonControls
                     break;
                 case _keyM:
                     PressedM = false;
+                    break;
+                case _keyC:
+                    PressedC = false;
                     break;
                 case _keyLeftShift:
                     PressedLeftShift = false;

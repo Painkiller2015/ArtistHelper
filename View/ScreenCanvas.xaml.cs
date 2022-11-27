@@ -62,7 +62,10 @@ namespace ArtistHelper.View
                     await StartArtProccess();
                 if (!needCanvasActive)
                     await StopArtProccess();
-
+            };
+            _GHKManager.ClearCanvas += async (obj, clearCanvas) =>
+            {                
+                CanvasLayer.Strokes.Clear();
             };
         }
         public async Task StartArtProccess()
