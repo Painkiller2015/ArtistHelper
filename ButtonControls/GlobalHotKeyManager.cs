@@ -115,6 +115,7 @@ namespace ArtistHelper.ButtonControls
                 }
                 StartedProcess = !StartedProcess;
                 CanvasActivEvent?.Invoke(null, StartedProcess);
+                StartHK = false;
             }
             if (PressedLeftCtrl && PressedLeftShift && StartHK)
             {
@@ -126,11 +127,13 @@ namespace ArtistHelper.ButtonControls
             }
             if (PressedLeftCtrl && PressedLeftAlt && PressedNumPad1)
             {
-                _Factory.CreateControlPanelWindow();                
+                _Factory.CreateControlPanelWindow();
+                PressedNumPad1 = false;
             }
             if (PressedLeftCtrl && PressedLeftAlt && PressedNumPad2)
             {
                 _Factory.CreateImageCreatorWindow();
+                PressedNumPad2 = false;
             }
             if (PressedLeftCtrl && PressedM)
             {
@@ -168,19 +171,19 @@ namespace ArtistHelper.ButtonControls
                 //case _keyL:
                 //    PressedL = false;
                 //    break;
-                case _keyLeftShift:
-                    PressedLeftShift = false;
-                    break;
+                //case _keyLeftShift:
+                //    PressedLeftShift = false;
+                //    break;
                 case _keyLeftAlt:
                     PressedLeftAlt = false;
                     AltButtonPressEvent?.Invoke(null, PressedLeftAlt);
                     break;
-                case _keyNumPad1:
-                    PressedNumPad1 = false;
-                    break;
-                case _keyNumPad2:
-                    PressedNumPad2 = false;
-                    break;
+                //case _keyNumPad1:
+                //    PressedNumPad1 = false;
+                //    break;
+                //case _keyNumPad2:
+                //    PressedNumPad2 = false;
+                //    break;
             }
         }
         public void Dispose()

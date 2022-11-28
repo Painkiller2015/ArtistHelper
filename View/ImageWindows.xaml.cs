@@ -128,21 +128,22 @@ namespace ArtistHelper.View
 
         private async Task StartFixImage()
         {
-            var hwnd = new WindowInteropHelper(this).Handle;
+            nint hwnd = new WindowInteropHelper(this).Handle;
             WindowsServices.SetWindowExTransparent(hwnd);
         }
         private async Task StopFixImage()
         {
-            var hwnd = new WindowInteropHelper(this).Handle;
+            nint hwnd = new WindowInteropHelper(this).Handle;
             WindowsServices.ClearWindowExTransparent(hwnd);
         }
         protected override void OnSourceInitialized(EventArgs e)
         {
             base.OnSourceInitialized(e);
-            var hwnd = new WindowInteropHelper(this).Owner;
+            nint hwnd = new WindowInteropHelper(this).Owner;
             WindowsServices.SetWindowExTransparent(hwnd);
         }
     }
+    //перенести в WinApi
     public static class WindowsServices
     {
         const int WS_EX_TRANSPARENT = 0x00000020;

@@ -16,7 +16,9 @@ namespace ArtistHelper.Service
         [DllImport("user32.dll")]
         static extern bool SetWindowPos(IntPtr hWnd, IntPtr hWndInsertAfter, int X, int Y, int cx, int cy, uint uFlags);
         [DllImport("user32.dll")]
-        static extern IntPtr GetWindowLong(IntPtr Handle, int GWL_EXSTYLE);
+        static extern int GetWindowLong(IntPtr hwnd, int GWL_EXSTYLE);
+        [DllImport("user32.dll")]
+        static extern int SetWindowLong(IntPtr hwnd, int index, int newStyle);
 
         static readonly IntPtr HWND_TOPMOST = new IntPtr(-1);
         static readonly IntPtr HWND_NOTOPMOST = new IntPtr(-2);
@@ -25,6 +27,14 @@ namespace ArtistHelper.Service
         const UInt32 SWP_NOMOVE = 0x0002;
         const UInt32 SWP_SHOWWINDOW = 0x0040;
         const long WS_EX_TOPMOST = 0x00000008L;
+        const long WS_EX_NOREDIRECTIONBITMAP = 0x00200000L;      
+        private const int WS_EX_TOOLWINDOW = 0x00000080;
+
+        public static void HideFromAltTab(IntPtr hwnd)
+        {
+            SetWindowLong(hwnd, GWL_EXSTYLE, WS_EX_TOOLWINDOW); //set
+             //   SetWindowLong(hwnd, GWL_EXSTYLE, GetWindowLong(hwnd, GWL_EXSTYLE) & ~WS_EX_TOOLWINDOW);//off
+        }
 
         public static void SetTopWindow()
         {
@@ -35,6 +45,7 @@ namespace ArtistHelper.Service
             else
                 SetWindowPos(hwnd, HWND_TOPMOST, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE | SWP_SHOWWINDOW);            
         }
+
         public static bool IsWindowTopMost(IntPtr Handle)
         {
             return (GetWindowLong(Handle, GWL_EXSTYLE) & WS_EX_TOPMOST) != 0;
