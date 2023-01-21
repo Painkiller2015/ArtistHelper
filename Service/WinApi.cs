@@ -28,12 +28,18 @@ namespace ArtistHelper.Service
         const UInt32 SWP_SHOWWINDOW = 0x0040;
         const long WS_EX_TOPMOST = 0x00000008L;
         const long WS_EX_NOREDIRECTIONBITMAP = 0x00200000L;      
-        private const int WS_EX_TOOLWINDOW = 0x00000080;
+        const int WS_EX_TOOLWINDOW = 0x00000080;
 
-        public static void HideFromAltTab(IntPtr hwnd)
+        public static void HideInAltTab(IntPtr hwnd)
         {
-            SetWindowLong(hwnd, GWL_EXSTYLE, WS_EX_TOOLWINDOW); //set
+            int extendedStyle = GetWindowLong(hwnd, GWL_EXSTYLE);
+            SetWindowLong(hwnd, GWL_EXSTYLE, extendedStyle | WS_EX_TOOLWINDOW); //set
              //   SetWindowLong(hwnd, GWL_EXSTYLE, GetWindowLong(hwnd, GWL_EXSTYLE) & ~WS_EX_TOOLWINDOW);//off
+        }
+        public static void ShowInAltTab(IntPtr hwnd)
+        {
+            int extendedStyle = GetWindowLong(hwnd, GWL_EXSTYLE);
+            SetWindowLong(hwnd, GWL_EXSTYLE, extendedStyle & ~WS_EX_TOOLWINDOW);//off
         }
 
         public static void SetTopWindow()

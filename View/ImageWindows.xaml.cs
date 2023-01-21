@@ -46,10 +46,19 @@ namespace ArtistHelper.View
 
             _GHKManager.ImageFixEvent += async (obj, needFixImage) =>
             {
+                nint hwnd = new WindowInteropHelper(this).Handle;
                 if (needFixImage)
-                    await StartFixImage();
+                {
+                    StartFixImage();                    
+                   // WinApi.HideInAltTab(hwnd);
+                }
+
+                    
                 if (!needFixImage)
-                    await StopFixImage();
+                {
+                    StopFixImage();
+                            //WinApi.ShowInAltTab(hwnd);
+                        }
             };
             _GHKManager.CtrlButtonPressEvent += async (obj, isPressed) =>
             {
@@ -126,12 +135,12 @@ namespace ArtistHelper.View
             Image.RenderTransform = multiTranform;
         }
 
-        private async Task StartFixImage()
+        private void StartFixImage()
         {
             nint hwnd = new WindowInteropHelper(this).Handle;
             WindowsServices.SetWindowExTransparent(hwnd);
         }
-        private async Task StopFixImage()
+        private void StopFixImage()
         {
             nint hwnd = new WindowInteropHelper(this).Handle;
             WindowsServices.ClearWindowExTransparent(hwnd);
@@ -146,7 +155,9 @@ namespace ArtistHelper.View
     //перенести в WinApi
     public static class WindowsServices
     {
+        const int WS_EX_WINDOWEDGE = 0x00000100;
         const int WS_EX_TRANSPARENT = 0x00000020;
+        const int WS_EX_TOOLWINDOW = 0x00000080;
         const int GWL_EXSTYLE = (-20);
 
         [DllImport("user32.dll")]
@@ -157,8 +168,11 @@ namespace ArtistHelper.View
 
         public static void SetWindowExTransparent(IntPtr hwnd)
         {
+            
             int extendedStyle = GetWindowLong(hwnd, GWL_EXSTYLE);
-            SetWindowLong(hwnd, GWL_EXSTYLE, extendedStyle | WS_EX_TRANSPARENT);
+
+            //int WS_EX_PALETTEWINDOW = WS_EX_TOOLWINDOW | WS_EX_TRANSPARENT | WS_EX_TOPMOST;
+            SetWindowLong(hwnd, GWL_EXSTYLE, extendedStyle | WS_EX_WINDOWEDGE | WS_EX_TOOLWINDOW);
         }
         public static void ClearWindowExTransparent(IntPtr hwnd)
         {

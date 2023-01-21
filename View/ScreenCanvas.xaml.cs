@@ -90,7 +90,7 @@ namespace ArtistHelper.View
             StartFixImage();
 
             nint hwnd = new WindowInteropHelper(this).Handle;
-            WinApi.HideFromAltTab(hwnd);
+            WinApi.HideInAltTab(hwnd);
         }
         private void SetColor(string HEXcolor)
         {
