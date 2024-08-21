@@ -14,6 +14,7 @@ using ArtistHelper.Service;
 namespace ArtistHelper.ButtonControls
 {
     // TODO Перепиши это говно уже plz
+    // переделать хоткеи на enum, настраиваемые хоткеи
     public sealed class GlobalHotKeyManager : IDisposable
     {
         #region HotKeyEvent
@@ -157,7 +158,7 @@ namespace ArtistHelper.ButtonControls
             {
                 case _keyLeftCtrl:
                     PressedLeftCtrl = false;
-                    CtrlButtonPressEvent?.Invoke(null, PressedLeftCtrl);
+                    //CtrlButtonPressEvent?.Invoke(null, PressedLeftCtrl);
                     break;
                 //case _keyF1:
                 //    StartHK = false;
@@ -176,7 +177,7 @@ namespace ArtistHelper.ButtonControls
                 //    break;
                 case _keyLeftAlt:
                     PressedLeftAlt = false;
-                    AltButtonPressEvent?.Invoke(null, PressedLeftAlt);
+                    //AltButtonPressEvent?.Invoke(null, PressedLeftAlt);
                     break;
                 //case _keyNumPad1:
                 //    PressedNumPad1 = false;
