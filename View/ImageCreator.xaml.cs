@@ -47,7 +47,7 @@ namespace ArtistHelper
                     foreach (var imagePath in files)
                     {
                         BitmapImage image = new(new Uri(imagePath));
-                        ImageWindows imgWin = new(image);
+                        ImageWindow imgWin = new(image);                        
                         imgWin.Show(); 
                         imgWin.Activate();
                     }

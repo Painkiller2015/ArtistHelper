@@ -61,10 +61,7 @@ namespace ArtistHelper.Model
                 Width = SysConfig.WidthScreens
             };
             sv.Show();
-            sv.StartArtProccess();
-            
-            
+            sv.StartArtProccess();                        
         }
-
     }
 }

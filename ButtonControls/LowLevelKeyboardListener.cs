@@ -59,8 +59,7 @@ namespace ArtistHelper.ButtonControls
                     return SetWindowsHookEx(WH_KEYBOARD_LL, proc, GetModuleHandle(curModule.ModuleName), 0);
                 }
                 catch (Exception e)
-                {
-                    string error = e.ToString();
+                {                    
                     return IntPtr.Zero;
                 }
             }
