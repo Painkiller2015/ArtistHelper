@@ -25,7 +25,7 @@ namespace ArtistHelper.View
     /// <summary>
     /// Логика взаимодействия для ImageWindows.xaml
     /// </summary>
-    public partial class ImageWindows : Window
+    public partial class ImageWindow : Window
     {
         private GlobalHotKeyManager _GHKManager = new();
         private bool _CtrlButtonIsPressed;
@@ -37,7 +37,12 @@ namespace ArtistHelper.View
         private bool _isMirrored = false;
         private RotateTransform _rotateTransform = new();
         private ScaleTransform _scaleTransform = new();
-        public ImageWindows(BitmapImage image)
+
+        //DEB0G ZONE
+        private double _Height;
+        private double _Width;
+        //DEB0G ZONE
+        public ImageWindow(BitmapImage image)
         {
             InitializeComponent();
             Image.Height = image.Height;
@@ -49,16 +54,15 @@ namespace ArtistHelper.View
                 nint hwnd = new WindowInteropHelper(this).Handle;
                 if (needFixImage)
                 {
-                    StartFixImage();                    
+                    StartFixImage(hwnd);                    
                    // WinApi.HideInAltTab(hwnd);
                 }
-
                     
                 if (!needFixImage)
                 {
-                    StopFixImage();
-                            //WinApi.ShowInAltTab(hwnd);
-                        }
+                    StopFixImage(hwnd);
+                    //WinApi.ShowInAltTab(hwnd);
+                }
             };
             _GHKManager.CtrlButtonPressEvent += async (obj, isPressed) =>
             {
@@ -97,7 +101,10 @@ namespace ArtistHelper.View
                 if (e.Delta > 0)
                 {
                     Image.Width += _scrollStepWidth;
-                    Image.Height += _scrollStepHeight;
+                    Image.Height += _scrollStepHeight;   
+                    
+                    //this.Height = Image.Height;
+                    //this.Width = Image.Width;
                 }
                 if (e.Delta < 0)
                 {
@@ -135,14 +142,14 @@ namespace ArtistHelper.View
             Image.RenderTransform = multiTranform;
         }
 
-        private void StartFixImage()
+        private void StartFixImage(nint hwnd)
         {
-            nint hwnd = new WindowInteropHelper(this).Handle;
+            //nint hwnd = new WindowInteropHelper(this).Handle; //new WindowInteropHelper(this).Handle;
             WindowsServices.SetWindowExTransparent(hwnd);
         }
-        private void StopFixImage()
+        private void StopFixImage(nint hwnd)
         {
-            nint hwnd = new WindowInteropHelper(this).Handle;
+            //nint hwnd = new WindowInteropHelper(this).Handle;
             WindowsServices.ClearWindowExTransparent(hwnd);
         }
         protected override void OnSourceInitialized(EventArgs e)
@@ -172,7 +179,7 @@ namespace ArtistHelper.View
             int extendedStyle = GetWindowLong(hwnd, GWL_EXSTYLE);
 
             //int WS_EX_PALETTEWINDOW = WS_EX_TOOLWINDOW | WS_EX_TRANSPARENT | WS_EX_TOPMOST;
-            SetWindowLong(hwnd, GWL_EXSTYLE, extendedStyle | WS_EX_WINDOWEDGE | WS_EX_TOOLWINDOW);
+            SetWindowLong(hwnd, GWL_EXSTYLE, extendedStyle | WS_EX_WINDOWEDGE | WS_EX_TOOLWINDOW | WS_EX_TRANSPARENT);
         }
         public static void ClearWindowExTransparent(IntPtr hwnd)
         {
