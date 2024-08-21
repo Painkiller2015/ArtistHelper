@@ -16,8 +16,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using Xceed.Wpf.Toolkit;
-using ArtistHelper.Model;
 using System.Text.RegularExpressions;
+using ArtistHelper.Model;
 
 
 namespace ArtistHelper.View
@@ -27,7 +27,7 @@ namespace ArtistHelper.View
     /// </summary>
     public partial class ControlPanel : Window
     {
-        private static readonly Regex _regex = new Regex("[^0-9.-]+");
+        private static readonly Regex _regex = new Regex("[^0-9]+");
         public static event EventHandler<Brush> ChangeColorEvent;
         public static event EventHandler<int> ChangeBrushSizeEvent;
         public static event EventHandler<bool> ChangeEditorModeEvent;
@@ -65,7 +65,6 @@ namespace ArtistHelper.View
         private void EditorModeChange(object sender, RoutedEventArgs e)
         {
             ChangeEditorModeEvent.Invoke(this, (bool)((CheckBox)sender).IsChecked);
-        }
-        
+        }        
     }
 }
