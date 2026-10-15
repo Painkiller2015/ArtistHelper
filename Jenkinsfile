@@ -13,23 +13,23 @@ pipeline {
             }
         }
 
-        stage('Restore') {
-            steps {
-                sh 'dotnet restore ArtistHelper.sln -r win-x64 -p:EnableWindowsTargeting=true'
-            }
+    stage('Restore') {
+        steps {
+            sh 'dotnet restore ArtistHelper.csproj -r win-x64 -p:EnableWindowsTargeting=true'
         }
+    }
 
-        stage('Build') {
-            steps {
-                sh 'dotnet build ArtistHelper.sln -c Release -r win-x64 --no-restore -p:EnableWindowsTargeting=true'
-            }
+    stage('Build') {
+        steps {
+            sh 'dotnet build ArtistHelper.csproj -c Release -r win-x64 --no-restore -p:EnableWindowsTargeting=true'
         }
+    }
 
-        stage('Publish') {
-            steps {
-                sh 'dotnet publish ArtistHelper.csproj -c Release -r win-x64 --self-contained false --no-restore -p:EnableWindowsTargeting=true -o ./publish'
-            }
+    stage('Publish') {
+        steps {
+            sh 'dotnet publish ArtistHelper.csproj -c Release -r win-x64 --self-contained false --no-restore -p:EnableWindowsTargeting=true -o ./publish'
         }
+    }
     }
 
     post {
