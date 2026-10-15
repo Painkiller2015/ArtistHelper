@@ -36,7 +36,7 @@ pipeline {
         success {
             archiveArtifacts artifacts: 'publish/**/*', fingerprint: true
         }
-        always {
+        cleanup {
             cleanWs()
         }
     }
